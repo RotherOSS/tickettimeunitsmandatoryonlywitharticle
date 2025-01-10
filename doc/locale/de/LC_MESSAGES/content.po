@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: OTOBO Installation Guide rel-11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-17 05:02+0200\n"
-"PO-Revision-Date: 2024-07-02 09:26+0000\n"
+"PO-Revision-Date: 2025-01-10 10:21+0000\n"
 "Last-Translator: Markus Hlinka <mah@rother-oss.com>\n"
 "Language-Team: German <http://weblate.otobo.org/projects/"
 "manual-tickettimeunitsmandatoryonlywitharticle/master/de/>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4.2\n"
+"X-Generator: Weblate 5.8.4\n"
 "Generated-By: Babel 2.4.0\n"
 
 #: ../../content/index.rst:16
 msgid "Sacrifice to Sphinx"
-msgstr ""
+msgstr "Sacrifice to Sphinx"
 
 #: ../../content/index.rst:19
 msgid "Description"
@@ -38,6 +38,11 @@ msgid ""
 " changes the behaviour, TimeUnits are only mandatory if an article exists"
 " for it."
 msgstr ""
+"Innerhalb des OTOBO-Standardsystems übersteuert die Option Ticket::Frontend::"
+"NeedAccountedTime die Option Action::NoteMandatory. Daher ist es nicht "
+"möglich, Dialoge ohne obligatorische Eingabe von Artikeln und TimeUnits zu "
+"konfigurieren. Dieses Paket ändert das Verhalten, TimeUnits sind nur dann "
+"obligatorisch, wenn ein Artikel für sie existiert."
 
 #: ../../content/index.rst:23
 msgid "System requirements"
@@ -45,7 +50,7 @@ msgstr "Systemvoraussetzungen"
 
 #: ../../content/index.rst:26
 msgid "Framework"
-msgstr ""
+msgstr "Framework"
 
 #: ../../content/index.rst:27
 msgid "OTOBO 10.1.x"
@@ -57,7 +62,7 @@ msgstr "Pakete"
 
 #: ../../content/index.rst:31 ../../content/index.rst:35
 msgid "\\-"
-msgstr ""
+msgstr "\\-"
 
 #: ../../content/index.rst:34
 msgid "Third-party software"
@@ -100,3 +105,5 @@ msgid ""
 "Author: |doc-vendor| / Version: |doc-version| / Date of release: |doc-"
 "datestamp|"
 msgstr ""
+"Autor: |doc-vendor| / Version: |doc-version| / Datum der Veröffentlichung: "
+"|doc-datestamp|"
