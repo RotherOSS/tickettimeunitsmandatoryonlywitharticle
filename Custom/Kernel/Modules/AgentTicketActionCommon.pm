@@ -2,7 +2,9 @@
 # OTOBO is a web-based ticketing system for service organisations.
 # --
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
-# Copyright (C) 2019-2022 Rother OSS GmbH, https://otobo.de/
+# Copyright (C) 2019-2025 Rother OSS GmbH, https://otobo.io/
+# --
+# $origin: otobo - c14ca55a8b1d3d686e803c1398813b83d22091e5 - Kernel/Modules/AgentTicketActionCommon.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -748,7 +750,7 @@ sub Run {
             }
         }
 
-	# check time units, but only if the current screen has a note
+        # check time units, but only if the current screen has a note
         #   (accounted time can only be stored if and article is generated)
         if (
 # Rother OSS
@@ -1013,6 +1015,8 @@ sub Run {
             }
             if ( defined $GetParam{SLAID} ) {
                 $TicketObject->TicketSLASet(
+                    %GetParam,
+                    %ACLCompatGetParam,
                     Action   => $Self->{Action},
                     SLAID    => $GetParam{SLAID},
                     TicketID => $Self->{TicketID},
@@ -1905,16 +1909,20 @@ sub Run {
         $GetParam{PriorityID}       = $Ticket{PriorityID}    // '';
         $GetParam{NewUserID}        = $Ticket{OwnerID}       // '';
         my $CustomerUser = $Ticket{CustomerUserID} // '';
-        DYNAMICFIELD:
 
+        # Get values for Ticket fields and use default value for Article fields, if given (all screens based on
+        # AgentTicketActionCommon generate a new article, then article fields will be always default value or
+        # empty at the beginning).
+        DYNAMICFIELD:
         for my $DynamicFieldConfig ( @{$DynamicField} ) {
             next DYNAMICFIELD if !IsHashRefWithData($DynamicFieldConfig);
             if ( $DynamicFieldConfig->{ObjectType} eq 'Ticket' ) {
 
-                # Only get values for Ticket fields (all screens based on AgentTickeActionCommon
-                # generates a new article, then article fields will be always empty at the beginning).
                 # Value is stored in the database from Ticket.
                 $GetParam{DynamicField}{ 'DynamicField_' . $DynamicFieldConfig->{Name} } = $Ticket{ 'DynamicField_' . $DynamicFieldConfig->{Name} };
+            }
+            elsif ( $DynamicFieldConfig->{ObjectType} eq 'Article' ) {
+                $GetParam{DynamicField}{ 'DynamicField_' . $DynamicFieldConfig->{Name} } = $DynamicFieldConfig->{Config}->{DefaultValue} || '';
             }
         }
 
@@ -3139,9 +3147,9 @@ sub _Mask {
             );
         }
 
-	# show time accounting box
+        # show time accounting box
         if ( $ConfigObject->Get('Ticket::Frontend::AccountTime') ) {
-            if ( $ConfigObject->Get('Ticket::Frontend::NeedAccountedTime' )) {
+            if ( $ConfigObject->Get('Ticket::Frontend::NeedAccountedTime') ) {
                 $LayoutObject->Block(
                     Name => 'TimeUnitsLabelMandatory',
                     Data => \%Param,
